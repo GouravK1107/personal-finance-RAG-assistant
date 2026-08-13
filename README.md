@@ -1,65 +1,114 @@
 # 📊 Personal Finance RAG Assistant
 
-A Retrieval-Augmented Generation (RAG) based AI assistant that answers personal finance questions using content extracted from PDF documents.
+A Retrieval-Augmented Generation (RAG) powered AI assistant that answers personal finance questions using content extracted directly from your own PDF documents — grounded, not hallucinated.
 
-This project combines:
-
-- Local embeddings using Sentence Transformers  
-- FAISS for vector similarity search  
-- Google Gemini for answer generation  
-- Streamlit for the frontend interface  
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![FAISS](https://img.shields.io/badge/FAISS-Vector%20Search-00A98F?style=for-the-badge)
+![Gemini](https://img.shields.io/badge/Google%20Gemini-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)
 
 ---
 
 ## 🚀 What This Project Does
 
-1. Reads multiple PDF files from the `documents/` folder  
-2. Extracts and chunks text  
-3. Generates semantic embeddings locally  
-4. Stores embeddings in a FAISS vector database  
-5. Retrieves relevant context based on user queries  
-6. Uses Gemini to generate grounded answers  
+1. Reads multiple PDF files from the `documents/` folder
+2. Extracts and chunks the text
+3. Generates semantic embeddings **locally** using Sentence Transformers
+4. Stores the embeddings in a FAISS vector database
+5. Retrieves the most relevant context for a user's query via similarity search
+6. Uses **Google Gemini** to generate a grounded answer from that context
 
-The system ensures responses are based only on the uploaded financial documents.
+The system only answers from the uploaded financial documents — no making things up.
 
 ---
 
-## 🏗 Architecture Overview
+## 🏗️ Architecture Overview
+
+```
 PDF Documents
-↓
-Text Extraction (pypdf)
-↓
+     │
+     ▼
+Text Extraction (PyPDF)
+     │
+     ▼
 Chunking
-↓
-Local Embeddings (SentenceTransformer)
-↓
+     │
+     ▼
+Local Embeddings (SentenceTransformer — all-MiniLM-L6-v2)
+     │
+     ▼
 FAISS Vector Database
-↓
+     │
+     ▼
 Similarity Search
-↓
+     │
+     ▼
 Gemini (Answer Generation)
-↓
+     │
+     ▼
 Streamlit Frontend
-
-
----
-
-## 🛠 Tech Stack
-
-- Python
-- Sentence Transformers (`all-MiniLM-L6-v2`)
-- FAISS (Vector Search)
-- Google Gemini API
-- Streamlit
-- PyPDF
+```
 
 ---
 
-### 4️⃣ Run the Application after cloning
+## 🛠️ Tech Stack
 
+| Component | Technology |
+|---|---|
+| Language | Python |
+| Embeddings | Sentence Transformers (`all-MiniLM-L6-v2`) |
+| Vector Search | FAISS |
+| LLM | Google Gemini API |
+| Frontend | Streamlit |
+| PDF Parsing | PyPDF |
+
+---
+
+## 📂 Project Structure
+
+```
+personal-finance-RAG-assistant/
+│
+├── documents/           # Drop your source PDFs here
+├── app.py               # Streamlit app entry point
+├── main2.py             # RAG pipeline logic
+├── requirements.txt
+├── .gitignore
+└── README.md
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+**1️⃣ Clone the repository**
+```
+git clone https://github.com/GouravK1107/personal-finance-RAG-assistant.git
+cd personal-finance-RAG-assistant
+```
+
+**2️⃣ Create a virtual environment**
+```
+python -m venv venv
+source venv/bin/activate     # Linux / macOS
+venv\Scripts\activate        # Windows
+```
+
+**3️⃣ Install dependencies and add your Gemini API key**
+```
+pip install -r requirements.txt
+```
+Create a `.env` file in the project root:
+```
+GEMINI_API_KEY=your_gemini_api_key_here
+```
+Then drop your personal finance PDFs into the `documents/` folder.
+
+**4️⃣ Run the application**
+```
 streamlit run app.py
-
-The app will open in your browser.
+```
+The app will open automatically in your browser.
 
 ---
 
@@ -75,48 +124,59 @@ The app will open in your browser.
 
 ## 🔒 Why Local Embeddings?
 
-Initially, embeddings were generated using the Gemini API.  
-However, API rate limits caused quota issues when processing large PDFs.
+Embeddings were initially generated via the Gemini API — but API rate limits caused quota issues when processing large PDFs.
 
-To solve this:
-
-- Embeddings are generated locally using Sentence Transformers
-- Gemini is used only for answer generation
+**The fix:**
+- Embeddings are now generated **locally** using Sentence Transformers
+- Gemini is used **only** for final answer generation
 - No embedding API limits
-- Faster performance
-- Scalable architecture
+- Faster overall performance
+- A more scalable architecture
 
 ---
 
 ## 📈 Future Improvements
 
-- Add file upload feature in UI  
-- Add metadata (file name + page number in answers)  
-- Persist FAISS index to disk  
-- Deploy to Streamlit Cloud  
-- Add evaluation metrics  
+- 📤 File upload feature directly in the UI
+- 🏷️ Answer metadata (source file name + page number)
+- 💾 Persist the FAISS index to disk instead of rebuilding each run
+- ☁️ Deploy to Streamlit Cloud
+- 📊 Add retrieval/answer evaluation metrics
 
 ---
 
 ## 🎯 Project Goal
 
-This project demonstrates how to build a production-style RAG pipeline using:
+This project is a portfolio-level implementation of a production-style RAG pipeline, demonstrating:
 
-- Open-source embeddings
-- Efficient vector search
-- LLM-based answer generation
-- Interactive web interface
+- Open-source local embeddings
+- Efficient vector similarity search
+- LLM-based grounded answer generation
+- A functional, interactive web interface
 
-It serves as a portfolio-level implementation of modern AI system design.
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome.
+Fork → create a branch → commit → push → open a pull request.
+
+---
+
+## ⭐ Support
+
+If this project helped you, consider giving it a ⭐ on GitHub.
 
 ---
 
 ## 👨‍💻 Author
 
-Gourav K  
-BCA Student | Backend & AI Enthusiast  
-Focused on mastering Computer Vision & AI systems.
+**Gourav R**
+Backend Developer | Applied AI Developer — exploring RAG pipelines & applied LLM systems
+
+GitHub: https://github.com/GouravK1107
+Portfolio: https://gouravk1107.github.io/my-portfolio/
 
 ---
 
-⭐ If you found this project useful, consider starring the repository!
+Made with ❤️, FAISS, and a lot of PDFs.
